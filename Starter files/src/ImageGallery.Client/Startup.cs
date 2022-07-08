@@ -43,10 +43,10 @@ namespace ImageGallery.Client
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.Authority = "https://localhost:44318";
+                options.Authority = "https://localhost:5001";
                 options.ClientId = "imagegalleryclient";
                 options.ResponseType = "code";
-                options.UsePkce = false;
+                options.UsePkce = true;
                 //options.CallbackPath = new PathString("...")
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
@@ -75,6 +75,9 @@ namespace ImageGallery.Client
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
