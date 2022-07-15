@@ -45,7 +45,7 @@ namespace ImageGallery.Client
             }).AddHttpMessageHandler<BearerTokenHandler>(); ;
             services.AddHttpClient("IDPClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:5001");
+                client.BaseAddress = new Uri("https://localhost:44318");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
@@ -62,7 +62,7 @@ namespace ImageGallery.Client
             .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.Authority = "https://localhost:5001";
+                options.Authority = "https://localhost:44318";
                 options.ClientId = "imagegalleryclient";
                 options.ResponseType = "code";
                 options.Scope.Add("address");
