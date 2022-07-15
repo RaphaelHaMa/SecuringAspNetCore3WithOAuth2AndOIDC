@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
+using IdentityServerHost.Quickstart.UI;
 
-namespace IdentityServerHost.Quickstart.UI
+namespace IdentityServer4.Quickstart.UI
 {
     /// <summary>
     /// This sample controller allows a user to revoke grants given to clients
@@ -61,10 +62,10 @@ namespace IdentityServerHost.Quickstart.UI
 
         private async Task<GrantsViewModel> BuildViewModelAsync()
         {
-            var grants = await _interaction.GetAllUserGrantsAsync();
+            var grants = await _interaction.GetAllUserConsentsAsync();
 
             var list = new List<GrantViewModel>();
-            foreach(var grant in grants)
+            foreach (var grant in grants)
             {
                 var client = await _clients.FindClientByIdAsync(grant.ClientId);
                 if (client != null)
@@ -77,11 +78,10 @@ namespace IdentityServerHost.Quickstart.UI
                         ClientName = client.ClientName ?? client.ClientId,
                         ClientLogoUrl = client.LogoUri,
                         ClientUrl = client.ClientUri,
-                        Description = grant.Description,
                         Created = grant.CreationTime,
                         Expires = grant.Expiration,
                         IdentityGrantNames = resources.IdentityResources.Select(x => x.DisplayName ?? x.Name).ToArray(),
-                        ApiGrantNames = resources.ApiScopes.Select(x => x.DisplayName ?? x.Name).ToArray()
+                        ApiGrantNames = resources.ApiResources.Select(x => x.DisplayName ?? x.Name).ToArray()
                     };
 
                     list.Add(item);
