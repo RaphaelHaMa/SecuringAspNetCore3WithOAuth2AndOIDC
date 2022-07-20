@@ -54,7 +54,7 @@ namespace ImageGallery.Client
                 client.BaseAddress = new Uri("https://localhost:44366/");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-            }).AddHttpMessageHandler<BearerTokenHandler>(); ;
+            }).AddHttpMessageHandler<BearerTokenHandler>();
             services.AddHttpClient("IDPClient", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44318");
@@ -82,6 +82,7 @@ namespace ImageGallery.Client
                 options.Scope.Add("imagegalleryapi");
                 options.Scope.Add("subscriptionlevel");
                 options.Scope.Add("country");
+                options.Scope.Add("offline_access");
                 options.ClaimActions.DeleteClaim("sid");
                 options.ClaimActions.DeleteClaim("idp");
                 options.ClaimActions.DeleteClaim("s_hash");
